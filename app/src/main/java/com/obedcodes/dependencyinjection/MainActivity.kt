@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.obedcodes.dependencyinjection.di.Battery
+import com.obedcodes.dependencyinjection.di.DaggerSmartPhoneComponent
 import com.obedcodes.dependencyinjection.di.MemoryCard
 import com.obedcodes.dependencyinjection.di.SIMCard
 import com.obedcodes.dependencyinjection.di.ServiceProvider
@@ -15,20 +16,30 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
 
+    private lateinit var smartPhone: SmartPhone
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val smartPhone = SmartPhone(Battery(),
+
+
+        DaggerSmartPhoneComponent.create()
+            .getSmartPhone()
+            .makeCallWithRecording()
+
+
+        /*val smartPhone = SmartPhone(Battery(),
             MemoryCard(),
             SIMCard(ServiceProvider())
 
         )
 
-        smartPhone.makeCallWithRecording()
+        smartPhone.makeCallWithRecording()*/
 
 
     }
 
 
+
 }
+
